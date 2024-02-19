@@ -1,6 +1,7 @@
 import cv2
 import mediapipe as mp
 import pandas as pd
+import time
 
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
@@ -12,7 +13,8 @@ with mp_hands.Hands(
     max_num_hands=2,
     min_detection_confidence=0.5) as hands:
 
-    while True:
+    start_time = time.time()
+    while (time.time() - start_time) < 10: 
         ret, frame = cap.read()
         if ret == False:
             break
@@ -38,7 +40,6 @@ with mp_hands.Hands(
 cap.release()
 cv2.destroyAllWindows()
 
-# Convertir la lista de diccionarios en DataFrame
 landmarks_list = []
 for landmarks_direction_final in landmarks_direction_list:
     landmarks_list.extend([{"Point": point, "x": xy[0], "y": xy[1]} 
@@ -46,6 +47,5 @@ for landmarks_direction_final in landmarks_direction_list:
 
 df = pd.DataFrame(landmarks_list)
 
-# Guardar el DataFrame en un archivo CSV
 df.to_csv("archivo.csv", index=False)
 print(df)
