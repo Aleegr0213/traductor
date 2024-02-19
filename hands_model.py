@@ -26,6 +26,7 @@ with mp_hands.Hands(
                 mp_drawing.draw_landmarks(
                     frame, hand_landmarks, mp_hands.HAND_CONNECTIONS
                 )
+<<<<<<< HEAD
                 landmarks_direction = {}
                 for id, landmark in enumerate(hand_landmarks.landmark):
                     cx, cy = int(landmark.x * width), int(landmark.y * height)
@@ -36,6 +37,8 @@ with mp_hands.Hands(
 
 
 
+=======
+>>>>>>> 43112e1059d55b7d5d7f23a62591ae2b8f5d7375
                 print(hand_landmarks)
 
         cv2.imshow("Frame", frame)
