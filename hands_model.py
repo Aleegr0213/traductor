@@ -1,5 +1,6 @@
 import cv2
 import mediapipe as mp
+import pandas as pd
 
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
@@ -26,20 +27,16 @@ with mp_hands.Hands(
                 mp_drawing.draw_landmarks(
                     frame, hand_landmarks, mp_hands.HAND_CONNECTIONS
                 )
-<<<<<<< HEAD
                 landmarks_direction = {}
                 for id, landmark in enumerate(hand_landmarks.landmark):
                     cx, cy = int(landmark.x * width), int(landmark.y * height)
                     landmarks_direction[f"Point_{id}"] = (cx, cy)
+            
+                landmarks_list = [{"Point": point, "x": xy[0], "y": xy[1]} 
+                                  for point, xy in landmarks_direction.items()]
+                df = pd.DataFrame(landmarks_list)
 
-                # Mostrar el diccionario con las ubicaciones de cada punto clave de la mano actual
-                print(landmarks_direction)
-
-
-
-=======
->>>>>>> 43112e1059d55b7d5d7f23a62591ae2b8f5d7375
-                print(hand_landmarks)
+                print(df)
 
         cv2.imshow("Frame", frame)
         if cv2.waitKey(1) & 0xFF ==27:
